@@ -1,3 +1,9 @@
+"""
+pong.py - A python Pong clone.
+
+Example from chapter 1 of the book "Python Game Programming by Example":
+https://www.packtpub.com/game-development/python-game-programming-example
+"""
 import tkinter as tk
 
 
@@ -113,7 +119,7 @@ class Game(tk.Frame):
         self.height = 400
         self.canvas = tk.Canvas(bg='#aaaaff',
                                 width=self.width,
-                                height = self.height)
+                                height=self.height)
         self.canvas.pack()
         self.pack()
 
