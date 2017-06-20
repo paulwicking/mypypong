@@ -10,6 +10,7 @@ import tkinter as tk
 class GameObject(object):
     """
     Defines behavior common for all game objects.
+
     All objects in the game - ball, paddle and bricks - inherit from this class.
     """
     def __init__(self, canvas, item):
@@ -19,6 +20,7 @@ class GameObject(object):
     def get_position(self):
         """
         Get the object position.
+
         :return: x and y coordinates
         """
         return self.canvas.coords(self.item)
@@ -26,6 +28,7 @@ class GameObject(object):
     def move(self, x_coordinate, y_coordinate):
         """
         Move the object by an offset.
+
         :param x_coordinate: horizontal offset, left to right
         :param y_coordinate: vertical offset, top to bottom
         :return:
@@ -35,6 +38,7 @@ class GameObject(object):
     def delete(self):
         """
         Remove the object.
+
         :return:
         """
         self.canvas.delete(self.item)
@@ -55,6 +59,8 @@ class Ball(GameObject):
 
     def update(self):
         """
+        Update ball position and change movement direction if out of bounds.
+
         Get the current position of the ball, and width of the canvas.
         Changes direction when the position collides with the canvas border.
         Direction vector is scaled by the ball's speed.
@@ -73,6 +79,7 @@ class Ball(GameObject):
     def collide(self, game_objects):
         """
         Checks collision with paddle and bricks.
+
         :param game_objects: Checks if the object hit is a brick, and calls Brick.hit() if it is.
         :return:
         """
@@ -98,6 +105,7 @@ class Ball(GameObject):
 class Paddle(GameObject):
     """
     Contains the paddle properties and movement.
+
     Also puts the ball on the paddle.
     """
     def __init__(self, canvas, x, y):
@@ -114,6 +122,7 @@ class Paddle(GameObject):
     def set_ball(self, ball):
         """
         Puts the ball on the paddle when the game starts and after lost balls
+
         :param ball: Reference to the ball in play.
         :return:
         """
@@ -147,6 +156,7 @@ class Brick(GameObject):
     def hit(self):
         """
         Removes destroyed bricks, and weakens bricks that take more than one hit.
+
         :return:
         """
         self.hits -= 1
@@ -159,6 +169,7 @@ class Brick(GameObject):
 class Game(tk.Frame):
     """
     Contains gameplay logic and main loop.
+
     Creates canvas, bricks, paddle and ball.
     Draws text on screen to communicate with user.
     """
@@ -192,6 +203,7 @@ class Game(tk.Frame):
     def setup_game(self):
         """
         Get game ready and display instructions to start.
+
         :return:
         """
         self.add_ball()
@@ -202,6 +214,7 @@ class Game(tk.Frame):
     def add_ball(self):
         """
         Adds a ball on top of the paddle at current position.
+
         :return:
         """
         if self.ball is not None:
@@ -214,6 +227,7 @@ class Game(tk.Frame):
     def add_brick(self, x_coordinate, y_coordinate, hits):
         """
         Add a brick to the canvas.
+
         :param x_coordinate: Horizontal position
         :param y_coordinate: Vertical position
         :param hits: Brick hit points
@@ -225,6 +239,7 @@ class Game(tk.Frame):
     def draw_text(self, x_coordinate, y_coordinate, text, size='40'):
         """
         Draw text on the canvas.
+
         :param x_coordinate: X position.
         :param y_coordinate: Y position.
         :param text: The text to display.
@@ -237,6 +252,7 @@ class Game(tk.Frame):
     def update_lives_text(self):
         """
         Displays number of lives left.
+
         :return:
         """
         text = 'Lives: %s' % self.lives
@@ -248,6 +264,7 @@ class Game(tk.Frame):
     def start_game(self):
         """
         Starts the game, and makes sure 'space' is no longer capable of starting the game.
+
         :return:
         """
         self.canvas.unbind('<space>')
@@ -258,6 +275,7 @@ class Game(tk.Frame):
     def game_loop(self):
         """
         The main game loop. Checks for collisions on each tick. Checks for win/lose condition.
+
         :return:
         """
         self.check_collisions()
@@ -281,6 +299,7 @@ class Game(tk.Frame):
     def check_collisions(self):
         """
         Check if the ball's current position overlaps with any other game objects.
+
         :return:
         """
         ball_coords = self.ball.get_position()
